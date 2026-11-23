@@ -234,9 +234,8 @@ class URLAnalyzer(BaseAnalyzer):
                 }
             )
 
-        # Classify as suspicious if any high severity indicator, or 2+ medium/low indicators
-        high_count = sum(1 for i in indicators if i["severity"] == "high")
-        is_suspicious = high_count > 0 or len(indicators) >= 2
+        # Classify as suspicious if any high or medium indicator, or 2+ indicators
+        is_suspicious = any(i["severity"] in ("high", "medium") for i in indicators) or len(indicators) >= 2
 
         return {
             "url": url,

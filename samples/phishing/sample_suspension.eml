@@ -1,0 +1,22 @@
+From: PayPal Security Alert <security-support@gmail.com>
+To: target.user@example.com
+Subject: URGENT: Your PayPal Account Has Been Suspended!
+Date: Mon, 23 Nov 2026 11:30:00 +0000
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+
+<!DOCTYPE html>
+<html>
+<head><title>Account Alert</title></head>
+<body>
+<h2>Urgent Notice: Account Suspension</h2>
+<p>Dear Customer,</p>
+<p>We detected unauthorized access to your account from an unknown IP address.
+Your account has been temporarily locked to prevent fraudulent activity.</p>
+<p><strong>Action required immediately:</strong> You must confirm your identity within 24 hours
+or your account will be permanently closed.</p>
+<p>Please enter your password and verify your credentials using our secure portal:</p>
+<p><a href="http://192.168.1.105/paypal-login/verify.html">Click here to verify your account immediately</a></p>
+<p>Thank you,<br>PayPal Security Department</p>
+</body>
+</html>

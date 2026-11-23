@@ -232,7 +232,7 @@ class RiskScorer:
                     return True
 
         # Check for risky TLD in sender address
-        risky_tlds = (".tk", ".ml", ".ga", ".cf", ".gq", ".top", ".xyz", ".buzz")
+        risky_tlds = (".tk", ".ml", ".ga", ".cf", ".gq", ".top", ".xyz", ".buzz", ".work", ".click", ".loan")
         if any(sender_lower.endswith(tld) or f"{tld}>" in sender_lower for tld in risky_tlds):
             return True
 
