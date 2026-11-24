@@ -1,3 +1,4 @@
+
 from django.conf import settings
 from django.core.validators import (
     FileExtensionValidator,
@@ -70,3 +71,6 @@ class ScanReport(models.Model):
     def __str__(self):
         title = self.subject or "Untitled email"
         return f"{title} — {self.classification}"
+from django.db import models
+
+# Create your models here.
