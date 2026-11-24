@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,6 +22,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    'django-insecure-development-key-change-before-deployment',
+)
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ.get('DJANGO_DEBUG', '1').lower() in {'1', 'true', 'yes'}
+
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get(
+        'DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,[::1]'
+    ).split(',')
+    if host.strip()
+]
 SECRET_KEY = 'django-insecure-67d$g(of$m0a)j*+71b#lsi(tejezvj&7#z1b_(vlnac4#oh_u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -115,15 +133,41 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Uploaded .eml files are stored locally during development.
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+MAX_EMAIL_UPLOAD_SIZE = 10 * 1024 * 1024
+DATA_UPLOAD_MAX_MEMORY_SIZE = MAX_EMAIL_UPLOAD_SIZE
+
+# Authentication routes can be connected by the application URL owner.
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'Lax'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MAILERS = {
     'default': {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
